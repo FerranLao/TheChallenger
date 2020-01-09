@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn",
-    "slug": "rn",
+    "name": "client",
+    "slug": "client",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
