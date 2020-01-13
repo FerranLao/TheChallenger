@@ -1,10 +1,10 @@
 require('dotenv').config();
-
-const bodyParser = require('body-parser');
-const express = require('express');
-const mongoose = require('mongoose');
-const logger = require('morgan');
-const cors = require("cors")
+import bodyParser from 'body-parser';
+import express from 'express';
+import mongoose from 'mongoose';
+import logger from 'morgan';
+import cors from 'cors'
+import passport from 'passport'
 
 mongoose
   .connect('mongodb://localhost/TheChallenger', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -35,11 +35,11 @@ app.use(cors(corsConfig))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize())
 
 
-
-const index = require('./routes/index');
-app.use('/', index);
+const auth = require('./routes/auth');
+app.use('/auth', auth);
 
 
 module.exports = app;
