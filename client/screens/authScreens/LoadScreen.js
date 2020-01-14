@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native";
-import { userLoged, primerToken } from "./../../axios/auth";
+import { userLogged, firstToken } from "./../../axios/auth";
 import LottieView from "lottie-react-native";
+import { dispatcher } from "../../redux/actions/dispatchers.js";
+import { connect } from "react-redux";
 
-export default ({ navigation }) => {
+const loadScreen = ({ navigation, addInfo }) => {
   useEffect(() => {
-    const apiCall = async () => {
+    const GetUserWithKey = async () => {
       const id = await AsyncStorage.getItem("key");
       if (id) {
         try {
-          const user = await userLoged(id);
-          console.log(user);
+          const user = await userLogged(id);
+          await addInfo(user);
           navigation.navigate({ routeName: "User" });
         } catch {
           navigation.navigate({ routeName: "Login" });
@@ -19,7 +21,7 @@ export default ({ navigation }) => {
         navigation.navigate({ routeName: "Login" });
       }
     };
-    apiCall();
+    GetUserWithKey();
   }, []);
   return (
     <View style={styles.container}>
@@ -36,6 +38,11 @@ export default ({ navigation }) => {
     </View>
   );
 };
+const mapStateToProps = () => ({});
+
+const mapDispatch = dispatcher(["addInfo"]);
+
+export default connect(mapStateToProps, mapDispatch)(loadScreen);
 
 const styles = StyleSheet.create({
   container: {

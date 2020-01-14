@@ -1,6 +1,6 @@
 import instance from "./";
 
-export const primerToken = async data => {
+export const firstToken = async data => {
   try {
     const response = await instance.post("/token", {
       user: data.user,
@@ -13,7 +13,7 @@ export const primerToken = async data => {
   }
 };
 
-export const userLoged = async id => {
+export const userLogged = async id => {
   try {
     const response = await instance.post("/userLog", id);
     return response.data;

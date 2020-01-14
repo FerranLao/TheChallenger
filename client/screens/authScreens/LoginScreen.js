@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native";
+import { firstToken, userLogged } from "./../../axios/auth";
+import { dispatcher } from "../../redux/actions/dispatchers.js";
+import { connect } from "react-redux";
 
-export default () => {
-  const algo = async () => {
+export const LoginScreen = () => {
+  const [userTyped, setUserTyped] = useState();
+  const [passwordTyped, setPasswordTyped] = useState();
+
+  const login = async () => {
     try {
-      // const pepe = await axios.get("/token");
-      // console.log("antes");
-      // await AsyncStorage.setItem("key", pepe.data);
+      const data = {
+        user: userTyped,
+        password: passwordTyped
+      };
 
-      const response = await AsyncStorage.getItem("key");
-
-      console.log(response);
+      const id = await firstToken(data);
+      if (id) {
+        await AsyncStorage.setItem("key", id);
+        try {
+          const user = await userLogged(id);
+          await addInfo(user);
+          navigation.navigate({ routeName: "User" });
+        } catch {
+          navigation.navigate({ routeName: "Login" });
+        }
+      } else {
+        navigation.navigate({ routeName: "Login" });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -22,6 +39,12 @@ export default () => {
     </View>
   );
 };
+
+const mapStateToProps = () => ({});
+
+const mapDispatch = dispatcher(["addInfo"]);
+
+export default connect(mapStateToProps, mapDispatch)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { baseRoute, primerToken, userLoged } = require("../handlers/auth");
+const { baseRoute, firstToken, userLogged } = require("../handlers/auth");
 
 router.get("/", baseRoute);
-router.post("/token", primerToken);
-router.post("/userLog", userLoged);
+router.post("/token", firstToken);
+router.post("/userLog", userLogged);
 
 module.exports = router;

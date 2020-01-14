@@ -19,7 +19,7 @@ module.exports = {
       res.json("something happened");
     }
   },
-  primerToken: async (req, res) => {
+  firstToken: async (req, res) => {
     console.log("llega");
 
     console.log(req);
@@ -32,7 +32,7 @@ module.exports = {
     }
   },
 
-  userLoged: async (req, res) => {
+  userLogged: async (req, res) => {
     console.log("llega");
 
     console.log(req);

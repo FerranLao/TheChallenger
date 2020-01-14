@@ -10,6 +10,7 @@ const reducers = {
 const appReducer = combineReducers(reducers);
 
 const rootReducer = (state, action) => {
+  //por defecto en todos
   //   switch (action.type) {
   //     case "LOG_OUT":
   //       state = {};
