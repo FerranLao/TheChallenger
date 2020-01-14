@@ -4,6 +4,7 @@ const { baseRoute, firstToken, userLogged } = require("../handlers/auth");
 
 router.get("/", baseRoute);
 router.post("/token", firstToken);
+router.post("/signup", firstToken);
 router.post("/userLog", userLogged);
 
 module.exports = router;

@@ -21,3 +21,18 @@ export const userLogged = async id => {
     console.log(e);
   }
 };
+
+export const goSignup = async data => {
+  try {
+    const response = await instance.post("/signup", {
+      name: data.name,
+      password: data.password,
+      email: data.email,
+      img: data.img
+    });
+
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};

@@ -13,12 +13,16 @@ const loadScreen = ({ navigation, addInfo }) => {
         try {
           const user = await userLogged(id);
           await addInfo(user);
-          navigation.navigate({ routeName: "User" });
+          navigation.navigate({ routeName: "Signup" });
+
+          // navigation.navigate({ routeName: "User" });
         } catch {
-          navigation.navigate({ routeName: "Login" });
+          // navigation.navigate({ routeName: "Login" });
+          navigation.navigate({ routeName: "Signup" });
         }
       } else {
-        navigation.navigate({ routeName: "Login" });
+        // navigation.navigate({ routeName: "Login" });
+        navigation.navigate({ routeName: "Signup" });
       }
     };
     GetUserWithKey();
