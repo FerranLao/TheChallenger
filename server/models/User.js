@@ -9,9 +9,9 @@ const userSchema = new Schema(
     active: { type: Boolean, default: false },
     email: { type: String, required: true },
     challenges: {
-      inspector: Number,
-      challenger: Number,
-      challenged: Number
+      inspector: {type:Number,default:0},
+      challenger: {type:Number,default:0},
+      challenged: {type:Number,default:0}
     },
     userPhoto: {
       type: String,

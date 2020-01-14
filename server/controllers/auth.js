@@ -1,14 +1,17 @@
-import { createUser } from "../bdd/user";
+import { createUser, validateUser } from "../bdd/user";
 import { validUser, checkPassword } from "../helpers/validations";
-import findUser from "../bdd/user/findUser";
+import {findUserByNameOrEmail} from "../bdd/user";
 import { newToken } from "../passport";
+import { sendConfirmationMail } from "../mailer";
 
 export const signUp = async (req, res) => {
+  if (req.file) req.body.userPhoto = req.file.url;
   if (!validUser(req.body)) {
     return res.status(402).send("invalid user");
   }
   try {
-    await createUser(req.body);
+    const { email, validationCode } = await createUser(req.body);
+    sendConfirmationMail(email, validationCode);
     res.status(200).send("user created");
   } catch (e) {
     if (e.status) res.status(e.status).send(e.message);
@@ -21,21 +24,24 @@ export const login = async (req, res) => {
   if (!name || !password)
     res.status(402).send("you must send a name and password");
   try {
-    const found = await findUser(name);
+    const found = await findUserByNameOrEmail(name);
     if (!(await checkPassword(password, found.password)) || !found.active)
       res.status(403).send("invalid credentials");
     const token = await newToken(found);
     res.json({ token });
   } catch (e) {
+    console.log(e);
     if (e.status) res.status(e.status).send(e.message);
     res.status(500).send("something happened");
   }
 };
 
 export const userConfirmation = async (req, res) => {
-  const validationCode = req.params;
+  const { validationCode } = req.params;
+  if (!validationCode) return res.status(400).send("validationCode needed");
   try {
-    validateUser(validationCode);
+    await validateUser(validationCode);
+    res.status(200).send("User confirmed");
   } catch (e) {
     if (e.status) res.status(e.status).send(e.message);
     res.status(500).send("something happened");

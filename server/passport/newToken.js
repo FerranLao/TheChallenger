@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
 
-const secret = process.env.JWT_SECRET;
-
 export default async user => {
   try {
-    const { name, email, userPhoto, _id } = user;
-    const token = await jwt.sign({ name, email, userPhoto, _id }, secret);
+    const { name, email, userPhoto, _id, challenges } = user;
+    const token = await jwt.sign(
+      { name, email, userPhoto, _id, challenges },
+      process.env.JWT_SECRET,
+      { expiresIn: 24 * 60 * 60 }
+    );
     return token;
   } catch (e) {
     throw new Error(e);

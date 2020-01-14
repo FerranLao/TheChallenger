@@ -1,14 +1,16 @@
 import User from "../../models/User";
-export default validationCode => {
+export default async validationCode => {
   try {
-    const update = User.findOneAndUpdate(
+    const update =await User.findOneAndUpdate(
       { validationCode },
       { active: true },
-      { upsert: false, new: true }
+      { new: true }
     );
+    console.log(update);
     if (!update) throw { status: 404, message: "invalid code" };
     return update;
-  }catch(e){
-    throw e
+  } catch (e) {
+    console.log(e)
+    throw e;
   }
 };
