@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import logger from "morgan";
 import cors from "cors";
 import passport from "passport";
+
 mongoose
   .connect("mongodb://localhost/TheChallenger", {
     useNewUrlParser: true,
