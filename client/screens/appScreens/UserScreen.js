@@ -2,11 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import { connect } from "react-redux";
 import Colors from "./../../constants/Colors";
+import Header from "./../../components/Header";
 
 const UserScreen = props => {
   // console.log(props.info);
   return (
     <View style={styles.container}>
+      {/* <Header></Header> */}
       <Text>USER</Text>
     </View>
   );
