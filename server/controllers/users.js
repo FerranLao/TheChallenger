@@ -5,11 +5,8 @@ export const getUsersByName = async (req,res) => {
   try {
     const users = await findUsersByName(name)
     res.json(users)
-    
   } catch (e) {
-      console.log(e)
     if(e.status) return res.status(e.status).send(e.message)
     res.status(500).send("something went wrong")
-
   }
 };

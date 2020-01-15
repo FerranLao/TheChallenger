@@ -1,8 +1,9 @@
 import { createUser, validateUser } from "../bdd/user";
 import { validUser, checkPassword } from "../helpers/validations";
-import {findUserByNameOrEmail} from "../bdd/user";
-import { newToken } from "../passport";
+import { findUserByNameOrEmail } from "../bdd/user";
+import { newToken, checkAutoLog } from "../passport";
 import { sendConfirmationMail } from "../mailer";
+import autoLogToken from "../passport/autoLogToken";
 
 export const signUp = async (req, res) => {
   if (req.file) req.body.userPhoto = req.file.url;
@@ -19,6 +20,20 @@ export const signUp = async (req, res) => {
   }
 };
 
+export const autoLogin = async (req, res) => {
+  const { autoLogToken } = req.body;
+  try {
+    const { name } = await checkAutoLog(autoLogToken)
+    const found = await findUserByNameOrEmail(name);
+    const token = await newToken(found);
+    res.json({ token });
+  } catch (e) {
+    console.log(e);
+    if (e.status) return res.status(e.status).send(e.message);
+    res.status(500).send("something happened");
+  }
+}
+
 export const login = async (req, res) => {
   const { name, password } = req.body;
   if (!name || !password)
@@ -27,7 +42,7 @@ export const login = async (req, res) => {
     const found = await findUserByNameOrEmail(name);
     if (!(await checkPassword(password, found.password)) || !found.active)
       res.status(403).send("invalid credentials");
-    const token = await newToken(found);
+    const token = await autoLogToken(found);
     res.json({ token });
   } catch (e) {
     console.log(e);

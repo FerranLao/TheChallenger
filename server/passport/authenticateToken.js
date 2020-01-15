@@ -9,11 +9,11 @@ const opts = {
 
 passport.use(
   new Strategy(opts, async (payload, done) => {
+    console.log("entra")
     try {
       const user = await findUserByNameOrEmail(payload.name);
       done(null, user);
     } catch (e) {
-      console.log(e)
       done(e, null);
     }
   })
