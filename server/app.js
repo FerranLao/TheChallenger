@@ -1,10 +1,10 @@
 require("dotenv").config();
-
-const bodyParser = require("body-parser");
-const express = require("express");
-const mongoose = require("mongoose");
-const logger = require("morgan");
-const cors = require("cors");
+import bodyParser from "body-parser";
+import express from "express";
+import mongoose from "mongoose";
+import logger from "morgan";
+import cors from "cors";
+import passport from "passport";
 
 mongoose
   .connect("mongodb://localhost/TheChallenger", {
@@ -26,18 +26,27 @@ const whitelist = ["http://localhost:19000", "http://localhost:19001"];
 
 const corsConfig = {
   origin: (origin, cb) => {
-    console.log(origin);
     cb(null, whitelist.includes(origin));
   },
   credentials: true
 };
 app.use(cors(corsConfig));
-// Middleware Setup
+
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+require("./passport/authenticateToken");
+app.use(passport.initialize());
 
-const index = require("./routes/index");
-app.use("/", index);
+//routes without token
+const auth = require('./routes/auth')
+app.use("/auth", auth);
+//routes with token
+app.use(passport.authenticate("jwt", { session: false }));
+const users = require ("./routes/users")
+app.use('/users',users)
+const challenges = require('./routes/challenges')
+app.use("/challenges", challenges);
 
 module.exports = app;
