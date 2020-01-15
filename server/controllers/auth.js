@@ -8,12 +8,12 @@ import autoLogToken from "../passport/autoLogToken";
 export const signUp = async (req, res) => {
   if (req.file) req.body.userPhoto = req.file.url;
   if (!validUser(req.body)) {
-    return res.status(402).send("invalid user");
+    return res.status(400).send("invalid user");
   }
   try {
     const { email, validationCode } = await createUser(req.body);
     sendConfirmationMail(email, validationCode);
-    res.status(200).send("user created");
+    res.status(200).send("user  created");
   } catch (e) {
     if (e.status) res.status(e.status).send(e.message);
     res.status(500).send("something happened");
@@ -21,9 +21,9 @@ export const signUp = async (req, res) => {
 };
 
 export const autoLogin = async (req, res) => {
-  const { autoLogToken } = req.body;
+  const { id } = req.body;
   try {
-    const { name } = await checkAutoLog(autoLogToken)
+    const { name } = await checkAutoLog(id)
     const found = await findUserByNameOrEmail(name);
     const token = await newToken(found);
     res.json({ token });
@@ -43,7 +43,7 @@ export const login = async (req, res) => {
     if (!(await checkPassword(password, found.password)) || !found.active)
       res.status(403).send("invalid credentials");
     const token = await autoLogToken(found);
-    res.json({ token });
+    res.json({ id: token });
   } catch (e) {
     console.log(e);
     if (e.status) res.status(e.status).send(e.message);

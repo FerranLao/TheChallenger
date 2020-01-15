@@ -6,7 +6,8 @@ const router = express.Router();
 
 router.get("/confirm/:validationCode", userConfirmation);
 
-router.post("/signUp", upload.single("photo"), signUp);
+//Cuando front este listo añadir middleware upload.single("photo") para subir foto de perfil
+router.post("/signUp", signUp);
 
 router.post("/login", login);
 
