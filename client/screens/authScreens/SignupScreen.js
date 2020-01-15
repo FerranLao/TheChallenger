@@ -48,6 +48,7 @@ export const SignupScreen = ({ navigation, addInfo }) => {
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         enableAutomaticScroll={true}
+        style={{ marginTop: 70 }}
       >
         <SafeAreaView style={styles.container}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -100,14 +101,12 @@ const styles = StyleSheet.create({
   inner: {
     padding: 24,
     flex: 1,
-    justifyContent: "flex-end",
-    paddingBottom: "20%"
+    justifyContent: "flex-end"
   },
   input: {
     height: 40,
     borderColor: "#000000",
     borderBottomWidth: 1,
-    marginBottom: 25,
-    marginTop: 3
+    marginBottom: 36
   }
 });

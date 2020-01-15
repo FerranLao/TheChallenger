@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import * as Font from "expo-font";
-
+import React from "react";
+import { StyleSheet } from "react-native";
 import {
   Container,
   Header,
@@ -14,7 +13,7 @@ import {
 export default ({ info }) => {
   return (
     <Container>
-      <Header style={{ height: 70, paddingTop: 20 }}>
+      <Header style={styles.headMargin}>
         <Left>
           <Button transparent>
             <Icon name="arrow-back" />
@@ -38,3 +37,9 @@ export default ({ info }) => {
     </Container>
   );
 };
+const styles = StyleSheet.create({
+  headMargin: {
+    height: 70,
+    paddingTop: 20
+  }
+});
