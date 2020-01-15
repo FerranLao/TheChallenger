@@ -27,12 +27,14 @@ export const LoginScreen = ({ navigation, addInfo }) => {
         password: passwordTyped
       };
 
-      const id = await firstToken(data);
+      const { id } = await firstToken(data);
+
       if (id) {
         await AsyncStorage.setItem("key", id);
         try {
-          const user = await userLogged(id);
-          await addInfo(user);
+          const { token } = await userLogged(id);
+          console.log(token);
+          await addInfo(token);
           navigation.navigate({ routeName: "User" });
         } catch {
           navigation.navigate({ routeName: "Login" });

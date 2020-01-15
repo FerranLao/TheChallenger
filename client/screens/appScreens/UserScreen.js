@@ -8,7 +8,7 @@ const UserScreen = props => {
   // console.log(props.info);
   return (
     <View style={styles.container}>
-      {/* <Header></Header> */}
+      <Header></Header>
       <Text>USER</Text>
     </View>
   );

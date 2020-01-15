@@ -34,15 +34,6 @@ export const SignupScreen = ({ navigation, addInfo }) => {
 
       const id = await goSignup(data);
       if (id) {
-        await AsyncStorage.setItem("key", id);
-        try {
-          const user = await userLogged(id);
-          await addInfo(user);
-          navigation.navigate({ routeName: "User" });
-        } catch {
-          navigation.navigate({ routeName: "Login" });
-        }
-      } else {
         navigation.navigate({ routeName: "Login" });
       }
     } catch (e) {
