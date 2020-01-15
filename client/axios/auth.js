@@ -15,7 +15,7 @@ export const firstToken = async data => {
 
 export const userLogged = async id => {
   try {
-    const response = await instance.post("/auth/autolog", id);
+    const response = await instance.post("/auth/autolog", { id });
     return response.data;
   } catch (e) {
     console.log(e);

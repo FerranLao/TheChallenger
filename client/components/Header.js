@@ -11,17 +11,17 @@ import {
   Icon,
   Title
 } from "native-base";
-export default () => {
+export default ({ info }) => {
   return (
     <Container>
-      <Header>
+      <Header style={{ height: 70, paddingTop: 20 }}>
         <Left>
           <Button transparent>
             <Icon name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Title>Header</Title>
+          <Title>{info}</Title>
         </Body>
         <Right>
           <Button transparent>

@@ -6,20 +6,15 @@ import Header from "./../../components/Header";
 
 const UserScreen = props => {
   // console.log(props.info);
-  return (
-    <View style={styles.container}>
-      <Header></Header>
-      <Text>USER</Text>
-    </View>
-  );
+  return <Header info="User info"></Header>;
 };
-UserScreen.navigationOptions = {
-  headerTitle: "User Info",
-  headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primary : "White"
-  },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary
-};
+// UserScreen.navigationOptions = {
+//   headerTitle: "User Info",
+//   headerStyle: {
+//     backgroundColor: Platform.OS === "android" ? Colors.primary : "White"
+//   },
+//   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary
+// };
 const mapStateToProps = store => {
   return {
     info: store.info

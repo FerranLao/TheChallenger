@@ -4,17 +4,9 @@ import { userLogged, firstToken } from "./../../axios/auth";
 import LottieView from "lottie-react-native";
 import { dispatcher } from "../../redux/actions/dispatchers.js";
 import { connect } from "react-redux";
-import * as Font from "expo-font";
 
 const loadScreen = ({ navigation, addInfo }) => {
   useEffect(() => {
-    const loadFonts = async () => {
-      Font.loadAsync({
-        Roboto: require("./../../assets/fonts/Roboto-Regular.ttf"),
-        Roboto_medium: require("./../../assets/fonts/Roboto-Medium.ttf")
-      });
-    };
-
     const GetUserWithKey = async () => {
       const id = await AsyncStorage.getItem("key");
       if (id) {
@@ -33,9 +25,9 @@ const loadScreen = ({ navigation, addInfo }) => {
         navigation.navigate({ routeName: "Signup" });
       }
     };
-    loadFonts();
     GetUserWithKey();
   }, []);
+
   return (
     <View style={styles.container}>
       <LottieView

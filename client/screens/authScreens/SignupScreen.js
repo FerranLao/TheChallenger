@@ -16,6 +16,8 @@ import { dispatcher } from "../../redux/actions/dispatchers.js";
 import { connect } from "react-redux";
 import Colors from "./../../constants/Colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Container } from "native-base";
+import Header from "./../../components/Header";
 
 export const SignupScreen = ({ navigation, addInfo }) => {
   const [nameTyped, setNameTyped] = useState();
@@ -40,46 +42,48 @@ export const SignupScreen = ({ navigation, addInfo }) => {
       console.log(e);
     }
   };
-
   return (
-    <KeyboardAwareScrollView
-      enableOnAndroid={true}
-      enableAutomaticScroll={true}
-    >
-      <SafeAreaView style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <View style={styles.space}>
-              <Text style={styles.text}>User</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Please type your name"
-                onChangeText={text => setNameTyped(text)}
-              ></TextInput>
+    <Container>
+      <Header info="Sign Up"></Header>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+      >
+        <SafeAreaView style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.inner}>
+              <View style={styles.space}>
+                <Text style={styles.text}>User</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Please type your name"
+                  onChangeText={text => setNameTyped(text)}
+                ></TextInput>
+              </View>
+              <View style={styles.space}>
+                <Text style={styles.text}>Email</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Please type your email"
+                  onChangeText={text => setEmailTyped(text)}
+                ></TextInput>
+              </View>
+              <View style={styles.space}>
+                <Text style={styles.text}>Password</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Please type your password"
+                  onChangeText={text => setPasswordTyped(text)}
+                ></TextInput>
+              </View>
+              <View>
+                <Button title="Submit" onPress={() => signup()}></Button>
+              </View>
             </View>
-            <View style={styles.space}>
-              <Text style={styles.text}>Email</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Please type your email"
-                onChangeText={text => setEmailTyped(text)}
-              ></TextInput>
-            </View>
-            <View style={styles.space}>
-              <Text style={styles.text}>Password</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Please type your password"
-                onChangeText={text => setPasswordTyped(text)}
-              ></TextInput>
-            </View>
-            <View>
-              <Button title="Submit" onPress={() => signup()}></Button>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
-    </KeyboardAwareScrollView>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      </KeyboardAwareScrollView>
+    </Container>
   );
 };
 
