@@ -44,8 +44,8 @@ const auth = require('./routes/auth')
 app.use("/auth", auth);
 //routes with token
 app.use(passport.authenticate("jwt", { session: false }));
-const users = require ("./routes/users")
-app.use('/users',users)
+const users = require("./routes/users")
+app.use('/users', users)
 const challenges = require('./routes/challenges')
 app.use("/challenges", challenges);
 

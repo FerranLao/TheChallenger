@@ -5,7 +5,7 @@ import {
   userConfirmation,
   autoLogin
 } from "../controllers/auth";
-import upload from "../cloudinary/cloudinary";
+// import upload from "../cloudinary/cloudinary";
 
 const router = express.Router();
 
@@ -17,5 +17,6 @@ router.post("/signUp", signUp);
 router.post("/login", login);
 
 router.post("/autolog", autoLogin);
+
 
 module.exports = router;

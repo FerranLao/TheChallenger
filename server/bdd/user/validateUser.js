@@ -6,8 +6,7 @@ export default async validationCode => {
       { active: true },
       { new: true }
     );
-    console.log(update);
-    if (!update) throw { status: 404, message: "invalid code" };
+    if (!update) throw { status: 400, message: "invalid code" };
     return update;
   } catch (e) {
     console.log(e)
