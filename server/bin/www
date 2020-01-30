@@ -24,7 +24,6 @@ require("../ws/invitations")(invitationNsp)
 
 server.on('error', error => {
   if (error.syscall !== 'listen') { throw error }
-
   switch (error.code) {
     case 'EACCES':
       console.error(`Port ${process.env.PORT} requires elevated privileges`);

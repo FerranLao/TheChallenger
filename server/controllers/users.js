@@ -9,7 +9,7 @@ export const getUsersByName = async (req, res) => {
     if (e.status) return res.status(e.status).send(e.message)
     res.status(500).send("something went wrong")
   }
-};
+}; 
 
 export const getUserById = async (req, res) => {
   const { id } = req.query
